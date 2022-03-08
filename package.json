@@ -1,0 +1,36 @@
+{
+  "name": "apod",
+  "version": "1.0.0",
+  "description": "Interview Test",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiranshahavi/apod.git"
+  },
+  "author": "Kiran Shahavi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiranshahavi/apod/issues"
+  },
+  "homepage": "https://github.com/kiranshahavi/apod#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-ejs-layouts": "^2.5.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "image-downloader": "^4.1.0",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^3.2.2",
+    "path": "^0.12.7",
+    "stream": "0.0.2",
+    "uuid": "^8.3.2"
+  }
+}
