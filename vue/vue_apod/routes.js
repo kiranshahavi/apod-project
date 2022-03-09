@@ -6,7 +6,7 @@ const {
 } = require("./controller");
 
 router.get("/home", home)
-router.post("/getApodData", getApodData)
+router.get("/getApodData", getApodData)
 
 module.exports = router;
   

@@ -1,5 +1,42 @@
-
+<form method="GET" action="getApodData">
+    <input type="date" name="apod_date_check" id="dateDefault" value="<%= new Date();%>">
+    <input type="hidden" name="MODE" value="select">
+    <div class="form-actions">
+        <button id="submit_button" class="btn btn-success">Submit</button>
+    </div>
+    </form>
+    <script>
+        function setInputDate(_id){
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth()+1, 
+            y = hoy.getFullYear(),
+            data;
+    
+        if(d < 10){
+            d = "0"+d;
+        };
+        if(m < 10){
+            m = "0"+m;
+        };
+    
+        data = y+"-"+m+"-"+d;
+        console.log(data);
+        _dat.value = data;
+    };
+    
+    setInputDate("#dateDefault");
+    </script>
+<% if(typeof userViewData === 'object' && typeof checkData === 'undefined'){ %>
 <div><%= userViewData.name;%></div>
-
 <img src="/public/images/<%= userViewData.imagename;%>" alt="" class="img-fluid mt-5" width="400" height="400">
 <%= userViewData.description;%>
+<% }else{ %><% '' } %>
+
+<% if(typeof checkData !== 'undefined'){ %>
+    <%= checkData;%>
+    <% }else{ %><% '' } %>
+
+
+

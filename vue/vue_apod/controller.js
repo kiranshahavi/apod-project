@@ -16,16 +16,29 @@ module.exports = {
         let rows;
         let datamage;
         let apiPicOfTheDay;
+        let checkDatavalue
+        let currDate = new Date();
+        let status = "yes"
+        let dateCheck
         try{
             connection  = await dbConnection.getConnection();
             await dbConnection.beginTransaction(connection);
-            req.body.APOD_DATE = req.body.apod_date_check.toLocaleString('fr-CA');
-            rows = await getData(connection,req.body);
-            console.log(req.body.APOD_DATE);
+            if(req.query.apod_date_check == "")
+                checkDatavalue = "Date Filed Cannot be blank"
+
+
+            req.query.APOD_DATE = req.query.apod_date_check.toLocaleString('fr-CA');
+            dateCheck = new Date(req.query.apod_date_check)
+            if(currDate.getTime() < dateCheck.getTime()){
+                status = "no"
+                checkDatavalue = "Date Cannot be Greater than Current Date"
+            }
+                
+            rows = await getData(connection,req.query);
             
-            if(rows == "")
+            if(rows == "" && status != "no")
             {
-                rows = await axios.get(`https://api.nasa.gov/planetary/apod?date=${req.body.APOD_DATE}&api_key=${process.env.NASAAPEY}`)
+                rows = await axios.get(`https://api.nasa.gov/planetary/apod?date=${req.query.APOD_DATE}&api_key=${process.env.NASAAPEY}`)
                 let currDate = new Date()
                 
                 let options = {
@@ -45,13 +58,11 @@ module.exports = {
                 rows = await getData(connection,req.body);
             }
             
-            
             await dbConnection.commitTransaction(connection);
-            if(rows != "")
-            {
-                let userViewData = rows[0]
-                res.render('apod_data.ejs',{'userViewData': userViewData});
-            }
+            
+            let userViewData = rows[0]
+            res.render('apod_data.ejs',{'userViewData': userViewData, checkData : checkDatavalue});
+            
             
         }
         catch(e){
